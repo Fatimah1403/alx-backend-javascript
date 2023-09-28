@@ -1,8 +1,8 @@
 export default function getResponseFromAPI() {
-    const response = Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve("API response data is true");
-        }, 1000);
-    });
-    return response;
+  return new Promise((resolve, reject) => {
+    // Simulate an asynchronous API request
+    setTimeout(() => {
+      resolve('API response data');
+    }, 1000);
+  });
 }
