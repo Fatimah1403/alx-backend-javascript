@@ -3,21 +3,21 @@ export default class Pricing {
     this._amount = amount;
     this._currency = currency;
   }
-   // getter for amouunt;
+
   get amount() {
     return this._amount;
   }
-   // setter for amount
-  set amount(value) {
-    this._amount = value;
+
+  set amount(a) {
+    this._amount = a;
   }
-   // getter for currency
+
   get currency() {
     return this._currency;
   }
 
-  set currency(values) {
-    this._currency = values;
+  set currency(c) {
+    this._currency = c;
   }
 
   displayFullPrice() {
