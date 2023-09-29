@@ -1,47 +1,38 @@
-class HolbertonCourse {
+export default class HolbertonCourse {
   constructor(name, length, students) {
-    if (typeof name !== 'string' || typeof length !== 'number' || !Array.isArray(students)) {
-      throw new TypeError('Invalid attribute types');
-    }
-	  this._name = name;
-	  this._length = length;
-	  this._students = students;
+    if (typeof name !== 'string') throw new TypeError('name must be a string');
+    if (!Number.isInteger(length)) throw new TypeError('length must be a number');
+    if (!Array.isArray(students)) throw new TypeError('students type must be an Array');
+
+    this._name = name;
+    this._length = length;
+    this._students = students;
   }
 
-  // implementing a getter and setter for each attributes
   get name() {
     return this._name;
   }
-  // setter for name
-  set name(value) {
-    if (typeof value !== 'string') {
-      throw new TypeError('Name must be a string');
-    }
-    this._name = value;
+
+  set name(val) {
+    if (typeof val !== 'string') throw new TypeError('name must be a string');
+    this._name = val;
   }
 
-  // getter for length
   get length() {
     return this._length;
   }
-  
-  // setter for length
-  set length(value) {
-    if (typeof length !== 'number') {
-      throw new TypeError('Length must be an integer');
-    }
-    this._length = value;
+
+  set length(val) {
+    if (!Number.isInteger(val)) throw new TypeError('length must be a number');
+    this._length = val;
   }
-  // getter for students
+
   get students() {
     return this._students;
   }
 
-  // setter for students
-  set students(value) {
-    if (!Array.isArray(students)) {
-      throw new TypeError('Students must be an array of strings');
-    }
-    this._students = value;
+  set students(val) {
+    if (!Array.isArray(val)) throw new TypeError('students type must be an Array');
+    this._students = val;
   }
 }
