@@ -1,4 +1,4 @@
-extend default class Airport {
+export default class Airport {
   constructor(name, code) {
     this._name = name;
     this._code = code;
@@ -9,8 +9,8 @@ extend default class Airport {
 
   set name(value) {
     this._name = value;
-  } 
-  
+  }
+
   get code() {
   return this._code;
   }
@@ -18,9 +18,8 @@ extend default class Airport {
   set code(val) {
     this._code = val;
   }
- 
+
   toString() {
-    return ['object ${this.code}'];
+    return `[object ${this.code}]`;
   }
 }
-
