@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 
 async function countStudents(fileName) {
   
@@ -6,10 +6,11 @@ async function countStudents(fileName) {
     const students = {};
     const fields = {};
     let length = 0;
-    const fileContents = await fs.readFileSync(fileName, 'utf-8');
+    const fileContents = await fs.readFile(fileName, 'utf-8');
     const lines = fileContents.toString().split('\n');
     for (let i = 0; i < lines.length; i += 1) {
-      if (lines[i]) {
+        const line = lines[i].trim();
+      if (line) {
         length += 1;
         const field = lines[i].toString().split(',');
         if (Object.prototype.hasOwnProperty.call(students, field[3])) {
@@ -24,8 +25,7 @@ async function countStudents(fileName) {
         }
       }
     }
-    const l = length - 1;
-    console.log(`Number of students: ${l}`);
+    console.log(`Number of students: ${lines.length - 1}`);
     for (const [key, value] of Object.entries(fields)) {
       if (key !== 'field') {
         console.log(`Number of students in ${key}: ${value}. List: ${students[key].join(', ')}`);
