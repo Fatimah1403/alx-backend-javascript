@@ -2,7 +2,7 @@ const { readFile } = require('fs');
 
 module.exports = function readDatabase(filePath) {
   const students = {};
-  return new Promise((res, reject) => {
+  return new Promise((resolve, reject) => {
     readFile(filePath, (err, data) => {
       if (err) {
         reject(err);
@@ -19,7 +19,7 @@ module.exports = function readDatabase(filePath) {
             }
           }
         }
-        res(students);
+        resolve(students);
       }
     });
   });
