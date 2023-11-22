@@ -4,6 +4,13 @@ const fs = require('fs').promises;
 const hostname = '127.0.0.1';
 const port = 1245;
 
+const argParsed = process.argv;
+
+if (argParsed.length !== 3) {
+  console.log('Error');
+  process.exit();
+}
+const file = argParsed[2].trim().toString();
 async function countStudents(fileName) {
     try {
       const students = {};
@@ -29,39 +36,38 @@ async function countStudents(fileName) {
         }
       }
   
-      console.log(`Number of students: ${lines.length - 1}`);
+      let result = (`Number of students: ${lines.length - 1}`);
   
       for (const [key, value] of Object.entries(fields)) {
         if (key !== 'field') {
-          console.log(`Number of students in ${key}: ${value}. List: ${students[key].join(', ')}`);
+          result += (`Number of students in ${key}: ${value}. List: ${students[key].join(', ')}`);
         }
       }
+      return result.trim();
     } catch (error) {
       throw new Error('Cannot load the database');
     }
   }
 
-  const  app = http.createServer((req, res) => {
+  const app = http.createServer(async (req, res) => {
     const header = {
-        'content-type': 'text/plain',
-      };
-      if (req.url === "/") {
-        res.writeHead(200, header);
-        res.end("Hello Holberton School!");
+      'content-type': 'text/plain',
+    };
+    if (req.url === '/') {
+      res.writeHead(200, header);
+      res.end('Hello Holberton School!');
+    }
+    if (req.url === '/students') {
+      res.writeHead(200, header);
+      res.write('This is the list of our students\n');
+      try {
+        const data = await countStudents(file);
+        res.end(data);
+      } catch (err) {
+        res.end('Cannot load the database');
       }
-      if (req.url === "/students") {
-        res.writeHead(200, header);
-        res.write("This is the list of our students");
-        countStudents(process.argv[2].toString()).then((file) => {
-            const outstring = output.slice(0, -1);
-            res.end(outstring);
-        }).catch(() => {
-            res.statusCode = 404;
-            res.end('Cannot load the database')
-        });
-      }
+    }
   });
-
 app.listen(port, hostname, () => {
 });
   module.exports = app;
