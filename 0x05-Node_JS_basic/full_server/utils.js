@@ -25,7 +25,8 @@ async function readDatabase(fileName) {
       }
     }
 
-    let result = (`Number of students: ${lines.length - 1}`);
+    // let result = (`Number of students: ${lines.length - 1}`);
+    let result = '';
 
     for (const [key, value] of Object.entries(fields)) {
       if (key !== 'field') {
