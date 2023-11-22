@@ -1,11 +1,17 @@
-// 7-http_express.js
-
 const express = require('express');
 const fs = require('fs').promises;
 
 const app = express();
+const hostname = '127.0.0.1';
 const port = 1245;
 
+const argParsed = process.argv;
+
+if (argParsed.length !== 3) {
+  console.log('Error');
+  process.exit();
+}
+const file = argParsed[2].trim().toString();
 async function countStudents(fileName) {
   try {
     const students = {};
@@ -44,24 +50,20 @@ async function countStudents(fileName) {
   }
 }
 
-// Define a route for the endpoint '/'
 app.get('/', (req, res) => {
   res.send('Hello Holberton School!');
 });
 
-// Define a route for the endpoint '/students'
 app.get('/students', async (req, res) => {
-  res.send('This is the list of our students\n');
+  res.write('This is the list of our students\n');
   try {
-    const data = await countStudents(req.query.database);
-    res.send(data);
+    const data = await countStudents(file);
+    res.end(data);
   } catch (err) {
-    res.send('Cannot load the database');
+    res.end('Cannot load the database');
   }
 });
-
-const server = app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(port, hostname, () => {
 });
 
 module.exports = app;
