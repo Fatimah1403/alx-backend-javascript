@@ -1,5 +1,7 @@
 # 0x06. Unittests in JS
 
+![](https://static1.smartbear.co/crossbrowsertesting/media/blog/cbt-blog-javascript-frameworks-3.png)
+
 ## Resources
 
 **Read or watch:**
@@ -557,3 +559,4 @@ bob@dylan:~$
 -   You should be able to run the test suite using  `npm test api.test.js`
 -   Every test should pass without any warning
 -   Your server should not display any error
+
